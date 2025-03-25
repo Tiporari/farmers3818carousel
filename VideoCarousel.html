@@ -2,7 +2,30 @@
 <html>
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-  <style>.owl-carousel img { width: 100%; height: auto; }</style>
+  <style>
+    /* Basic tile styling */
+    .owl-carousel .owl-item { 
+      width: 250px; /* Fixed width for each tile */
+      margin: 10px; /* Space between tiles */
+      text-align: center; /* Center titles under thumbnails */
+    }
+    .owl-carousel img { 
+      width: 100%; 
+      height: auto; 
+      max-height: 150px; /* Consistent thumbnail height */
+      object-fit: cover; /* Crop if needed */
+    }
+    .owl-carousel p { 
+      font-size: 14px; 
+      margin: 5px 0; 
+      word-wrap: break-word; /* Wrap long titles */
+    }
+    .owl-carousel { 
+      display: flex; 
+      flex-wrap: wrap; /* Allow tiles to wrap to next row */
+      justify-content: center; /* Center tiles on page */
+    }
+  </style>
 </head>
 <body>
   <h2>Farmers3818 Videos</h2>
@@ -11,8 +34,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
   <script>
-    const apiKey = 'AIzaSyAQkZNSGUneI_JlnXQ1WPjZLqdaA-tKuCc'; // Rlowrie@gmail.com - API key generated for youtube experiment 3-25-2025
-    const channelId = 'UCffT6XB_VqQXbQnBarYiPxA'; // @farmers3818’s channelIds
+    const apiKey = 'AIzaSyAQkZNSGUneI_JlnXQ1WPjZLqdaA-tKuCc'; // Your API key
+    const channelId = 'UCffT6XB_VqQXbQnBarYiPxA'; // @farmers3818’s channel ID
     const url = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=10`;
 
     fetch(url)
@@ -33,10 +56,15 @@
           `);
         });
         carousel.owlCarousel({
-          items: 4, // Show 4 tiles at a time
-          // loop: true,        remove comment to disable grid view
+          items: 4, // 4 tiles per row on wide screens
           margin: 10,
-          nav: true
+          nav: false, // Remove navigation arrows
+          dots: false, // Remove dots
+          responsive: { // Adjust tiles based on screen size
+            0: { items: 1 }, // 1 tile on small screens
+            600: { items: 2 }, // 2 tiles on medium screens
+            1000: { items: 4 } // 4 tiles on large screens
+          }
         });
       })
       .catch(error => console.error('Error:', error));
